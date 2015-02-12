@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/PalmerEk/CryptsyV2-API"
   },
-  "main": "bleutrade.js",
+  "main": "cryptsyV2.js",
   "engines": {
     "node": ">=0.10"
   },
