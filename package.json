@@ -1,5 +1,5 @@
 {
-  "name": "cryptsyV2-api",
+  "name": "cryptsyv2-api",
   "version": "0.0.1",
   "description": "NodeJS Client Library for the CryptsyV2 (cryptsy.com) API",
   "keywords": [
@@ -27,5 +27,8 @@
     "url": "https://github.com/PalmerEk/CryptsyV2-API/issues",
     "email": "CryptsyV2API@PalmerEk.com"
   },
-  "readmeFilename": "README.md"
+  "homepage": "https://github.com/PalmerEk/CryptsyV2-API",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

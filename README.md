@@ -11,7 +11,7 @@ Example Usage:
 ```javascript
 var util = require('util');
 
-var CryptsyAPI = require('cryptsyV2-api');
+var CryptsyAPI = require('cryptsyv2-api');
 var cryptsy = new CryptsyAPI("YOUR-KEY-FOR-PRIVATE-FUNCTIONS", "YOUR-SECRET-FOR-PRIVATE-FUNCTIONS");
 
 cryptsy.markets(function(err, markets) {
