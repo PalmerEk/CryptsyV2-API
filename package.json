@@ -1,6 +1,6 @@
 {
   "name": "cryptsyv2-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "NodeJS Client Library for the CryptsyV2 (cryptsy.com) API",
   "keywords": [
     "btc",
@@ -12,9 +12,9 @@
   "contributors": [],
   "license": "MIT",
   "dependencies": {
-    "pusher-node-client": "0.0.8",
     "request": ">=2.53.0",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "pusher-client": "~0.2.3"
   },
   "repository": {
     "type": "git",

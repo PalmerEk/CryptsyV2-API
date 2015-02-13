@@ -1,12 +1,10 @@
-var stringify     	= require("querystring").stringify,
-	hmac          	= require("crypto").createHmac,
-	util 			= require('util'),
+var stringify  	= require("querystring").stringify,
+	hmac         	= require("crypto").createHmac,
+	util 					= require('util'),
 	EventEmitter 	= require('events').EventEmitter,
-	request       	= require("request"),
-	Pusher 		  	= require('pusher-node-client').PusherClient,
-	_				= require('underscore');
-
-
+	request       = require("request"),
+	Pusher 		  	= require('pusher-client'),
+	_							= require('underscore');
 
 function CryptsyClient(key, secret, requeue) {
 	var self    = this;
@@ -16,9 +14,7 @@ function CryptsyClient(key, secret, requeue) {
 	self.jar     = request.jar();
 	self.requeue = requeue || 0;
 
-	self.client = new Pusher({ key: 'cb65d0a7a72cd94adf1f', appId: '', secret: '' });
-  	self.queue = [];
-	self.pushConnected = false;
+	self.pushClient = null;
 
 	function api_query(method, id, action, auth, callback, args, get_method) {
 		var args_tmp = {};
@@ -287,35 +283,19 @@ function CryptsyClient(key, secret, requeue) {
 	// Push API
 	////////////////////////////////////////////////////////////////////////
 	self.subscribe = function(market, type) {
-		if(!self.pushConnected) {
-			self.client.on('connect', self._subscribeQueue);
-			self.client.connect();
+		if(!self.pushClient) {
+			self.pushClient = new Pusher('cb65d0a7a72cd94adf1f', { encrypted: true });
 		}
 
 		type = (type||'').toLowerCase() == 'trade' ? 'trade' : 'ticker';
 
-	  	// if array, recurse
-	  	if(market instanceof Array) return market.forEach(function(m) { self.subscribe(m, type); });
+	  // if array, recurse
+	  if(market instanceof Array) return market.forEach(function(m) { self.subscribe(m, type); });
 	
-		if(self.connected) {
-			self._subscribe(type + '.' + market);
-		} else {
-			self.queue.push(type + '.' + market);
-		}
+		self.pushClient.subscribe(type + '.' + market).bind('message', self.handlePushEvents);
 	};
 
-	// after connect, subscribe to all qued markets
-	self._subscribeQueue = function() {
-	  self.connected = true;
-	  self.queue.forEach(self._subscribe);
-	  self.queue = [];
-	}
-
-	self._subscribe = function(channel) {
-	  self.client.subscribe(channel).on('message', self.handle);
-	}
-
-	self.handle = function(e) {
+	self.handlePushEvents = function(e) {
 	  if(e.channel.indexOf('trade.') >= 0) {
 	    self.emit('trade', e);
 	  } else if(e.channel.indexOf('ticker.') >= 0) {
