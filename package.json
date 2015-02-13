@@ -12,6 +12,7 @@
   "contributors": [],
   "license": "MIT",
   "dependencies": {
+    "pusher-node-client": "0.0.8",
     "request": ">=2.53.0",
     "underscore": "~1.7.0"
   },
