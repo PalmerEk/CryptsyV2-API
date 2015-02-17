@@ -41,7 +41,7 @@ function CryptsyClient(key, secret, requeue) {
 		if(action) options.uri += ('/'+action);
 
 		if(!auth) {
-			if(stringify(args) != '') options.url += ('?' + stringify(args));
+			if(stringify(args) != '') options.uri += ('?' + stringify(args));
 		}	else	{
 			if (!self.key || !self.secret) {
 				throw new Error("Must provide key and secret to make this API request.");
