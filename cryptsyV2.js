@@ -142,6 +142,14 @@ function CryptsyClient(key, secret, requeue) {
 		execute('validatetradekey', true, params, callback, ['tradekey'])
 	};
 
+	self.transfer = function(params, callback) {
+		execute('transfer', true, params, callback, ['notificationtoken', 'tradekey', 'quantity'])
+	};
+
+	self.withdraw = function(params, callback) {
+		execute('withdraw', true, params, callback, ['notificationtoken', 'address', 'quantity'])
+	};
+
 	////////////////////////////////////////////////////////////////////////
 	// Markets
 	////////////////////////////////////////////////////////////////////////
