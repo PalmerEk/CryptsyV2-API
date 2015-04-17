@@ -1,6 +1,6 @@
 {
   "name": "cryptsyv2-api",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "NodeJS Client Library for the CryptsyV2 (cryptsy.com) API",
   "keywords": [
     "btc",
